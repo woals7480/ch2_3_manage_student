@@ -5,6 +5,7 @@ import java.util.List;
 import org.fastcampus.student_management.application.course.dto.CourseInfoDto;
 import org.fastcampus.student_management.application.student.StudentService;
 import org.fastcampus.student_management.domain.Course;
+import org.fastcampus.student_management.domain.CourseList;
 import org.fastcampus.student_management.domain.DayOfWeek;
 import org.fastcampus.student_management.domain.Student;
 import org.fastcampus.student_management.repo.CourseRepository;
@@ -33,21 +34,28 @@ public class CourseService {
 
   public void changeFee(String studentName, int fee) {
     // TODO: 과제 구현 부분
+
+    // AI 작성
+//    List<Course> courses = courseRepository.getCourseListByStudent(studentName);
+//    List<Course> changedCourses = new ArrayList<>();
+//
+//    for (Course course : courses) {
+//      Course changedCourse = new Course(
+//              studentService.getStudent(studentName),
+//              course.getCourseName(),
+//              fee,
+//              course.getDayOfWeek(),
+//              course.getCourseTime()
+//      );
+//
+//      changedCourses.add(changedCourse);
+//    }
+//
+//    courseRepository.saveCourses(changedCourses);
+
+    // 강의
     List<Course> courses = courseRepository.getCourseListByStudent(studentName);
-    List<Course> changedCourses = new ArrayList<>();
-
-    for (Course course : courses) {
-      Course changedCourse = new Course(
-              studentService.getStudent(studentName),
-              course.getCourseName(),
-              fee,
-              course.getDayOfWeek(),
-              course.getCourseTime()
-      );
-
-      changedCourses.add(changedCourse);
-    }
-
-    courseRepository.saveCourses(changedCourses);
+    CourseList courseList = new CourseList(courses);
+    courseList.changeAllCoursesFee(fee);
   }
 }
